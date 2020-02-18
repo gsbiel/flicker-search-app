@@ -54,14 +54,38 @@
 		89F4C0A223FBFAAA00CB43AD /* flicker-search */ = {
 			isa = PBXGroup;
 			children = (
+				89F4C0B723FBFE1400CB43AD /* Model */,
+				89F4C0B823FBFE2200CB43AD /* View */,
+				89F4C0B923FBFE2800CB43AD /* Controller */,
 				89F4C0A323FBFAAA00CB43AD /* AppDelegate.swift */,
 				89F4C0A523FBFAAA00CB43AD /* SceneDelegate.swift */,
-				89F4C0A723FBFAAA00CB43AD /* ViewController.swift */,
 				89F4C0AC23FBFAAC00CB43AD /* Assets.xcassets */,
 				89F4C0AE23FBFAAC00CB43AD /* LaunchScreen.storyboard */,
 				89F4C0B123FBFAAC00CB43AD /* Info.plist */,
 			);
 			path = "flicker-search";
+			sourceTree = "<group>";
+		};
+		89F4C0B723FBFE1400CB43AD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		89F4C0B823FBFE2200CB43AD /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		89F4C0B923FBFE2800CB43AD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				89F4C0A723FBFAAA00CB43AD /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
