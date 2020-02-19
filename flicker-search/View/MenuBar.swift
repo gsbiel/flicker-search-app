@@ -13,7 +13,7 @@ class MenuBar: UIView {
     private lazy var viewContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .blue
+        view.backgroundColor = UIColor.red
         return view
     }()
     
@@ -29,14 +29,15 @@ class MenuBar: UIView {
     
     private func setupView() {
         self.addSubview(viewContainer)
+        setupLayout()
     }
     
     private func setupLayout() {
         // viewContainer
         viewContainer.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        viewContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         viewContainer.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         viewContainer.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        viewContainer.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     override class var requiresConstraintBasedLayout: Bool {

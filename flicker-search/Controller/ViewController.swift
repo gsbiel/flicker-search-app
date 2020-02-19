@@ -19,9 +19,9 @@ class ViewController: UIViewController {
         }
         
         navBar.topItem?.title = "Flicker Search"
-        navBar.barTintColor = #colorLiteral(red: 0.7235401308, green: 0.9265289656, blue: 1, alpha: 1)
-        navBar.tintColor = #colorLiteral(red: 0.5413247865, green: 0.6131889538, blue: 1, alpha: 1)
-        
+        navBar.barTintColor = .red
+        navBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+    
         let flickerView = FlickerCollectionView(frame: UIScreen.main.bounds)
         
         flickerView.collectionView.dataSource = self

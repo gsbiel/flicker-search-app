@@ -29,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Criando o NavigationController
         let navController = UINavigationController(rootViewController: collectionVC)
-        
+    
         // Passando o navigationController como ViewController principal da window.
         window?.rootViewController = navController
         

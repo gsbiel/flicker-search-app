@@ -10,6 +10,12 @@ import UIKit
 
 class FlickerCollectionView: UIView {
     
+    private lazy var menuBar: MenuBar = {
+        let menu = MenuBar()
+        menu.translatesAutoresizingMaskIntoConstraints = false
+        return menu
+    }()
+    
     lazy var collectionViewFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
@@ -36,12 +42,19 @@ class FlickerCollectionView: UIView {
     }
     
     private func setupView() {
+        self.addSubview(menuBar)
         self.addSubview(collectionView)
         setupLayout()
     }
     
     private func setupLayout() {
-        collectionView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
+        //MenuBar
+        menuBar.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
+        menuBar.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        menuBar.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        menuBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        collectionView.topAnchor.constraint(equalTo: menuBar.bottomAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor).isActive = true
         collectionView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         collectionView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
