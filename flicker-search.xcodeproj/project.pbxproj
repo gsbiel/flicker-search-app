@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		89796F8623FDC94300DE6872 /* FlickrAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89796F8523FDC94300DE6872 /* FlickrAPI.swift */; };
 		89796F8823FDC97400DE6872 /* APIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89796F8723FDC97400DE6872 /* APIData.swift */; };
+		89796F8A23FDD9AC00DE6872 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89796F8923FDD9AC00DE6872 /* MenuBar.swift */; };
 		89F4C0A423FBFAAA00CB43AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F4C0A323FBFAAA00CB43AD /* AppDelegate.swift */; };
 		89F4C0A623FBFAAA00CB43AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F4C0A523FBFAAA00CB43AD /* SceneDelegate.swift */; };
 		89F4C0A823FBFAAA00CB43AD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F4C0A723FBFAAA00CB43AD /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		89796F8523FDC94300DE6872 /* FlickrAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrAPI.swift; sourceTree = "<group>"; };
 		89796F8723FDC97400DE6872 /* APIData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIData.swift; sourceTree = "<group>"; };
+		89796F8923FDD9AC00DE6872 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		89F4C0A023FBFAAA00CB43AD /* flicker-search.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "flicker-search.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89F4C0A323FBFAAA00CB43AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89F4C0A523FBFAAA00CB43AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				89F4C0BA23FBFEBC00CB43AD /* FlickerCollectionView.swift */,
+				89796F8923FDD9AC00DE6872 /* MenuBar.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 				89F4C0BB23FBFEBC00CB43AD /* FlickerCollectionView.swift in Sources */,
 				89F4C0A423FBFAAA00CB43AD /* AppDelegate.swift in Sources */,
 				89F4C0A623FBFAAA00CB43AD /* SceneDelegate.swift in Sources */,
+				89796F8A23FDD9AC00DE6872 /* MenuBar.swift in Sources */,
 				89796F8623FDC94300DE6872 /* FlickrAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
