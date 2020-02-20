@@ -28,6 +28,7 @@ class FlickerCollectionView: UIView {
         collectionVC.translatesAutoresizingMaskIntoConstraints = false
         collectionVC.backgroundColor = .white
         collectionVC.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "collectionViewCell")
+        collectionVC.scrollIndicatorInsets = UIEdgeInsets(top: 20, left: 0, bottom: 10, right: 0)
         return collectionVC
     }()
     
