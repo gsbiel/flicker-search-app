@@ -7,7 +7,7 @@ target 'flicker-search' do
 
   # Pods for flicker-search
 
-pod 'Alamofire', '~> 5.0'
+pod 'Alamofire', '~> 4.4'
 pod 'SwiftyJSON', '~> 4.0'
 pod 'SDWebImage', '~> 5.0'
 

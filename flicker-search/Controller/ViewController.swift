@@ -28,6 +28,9 @@ class ViewController: UIViewController {
         flickerView.collectionView.delegate = self
         
         self.view.addSubview(flickerView)
+        
+        FlickrAPI.getPhotoData()
+        
     }
 
 }
