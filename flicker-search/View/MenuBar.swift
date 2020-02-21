@@ -12,10 +12,13 @@ class MenuBar: UIView {
     
     private let collectionViewCellId: String =  "collectionViewCell"
     
+    private let menuImagesName: [String] = ["home","popular","feed","user"]
+    
     private lazy var viewContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.red
+        view.clipsToBounds = true
         return view
     }()
     
@@ -24,7 +27,7 @@ class MenuBar: UIView {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.backgroundColor = .red
-        collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellId)
+        collection.register(MenuCell.self, forCellWithReuseIdentifier: collectionViewCellId)
         collection.dataSource = self
         collection.delegate = self
         return collection
@@ -71,8 +74,9 @@ extension MenuBar: UICollectionViewDataSource, UICollectionViewDelegate, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.collectionViewCellId, for: indexPath)
-        cell.backgroundColor = .blue
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.collectionViewCellId, for: indexPath) as! MenuCell
+        cell.imageView.image = UIImage(named: self.menuImagesName[indexPath.item])!.withRenderingMode(.alwaysTemplate)
+        cell.tintColor = #colorLiteral(red: 0.3568627451, green: 0.05490196078, blue: 0.05098039216, alpha: 1)
         return cell
     }
     
@@ -82,5 +86,55 @@ extension MenuBar: UICollectionViewDataSource, UICollectionViewDelegate, UIColle
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+}
+
+class MenuCell: UICollectionViewCell {
+    
+    lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    //As variaveis sobrescritas abaixo pertencem a superclasse UICollectionViewCell e nos permite saber quando o usuario toca ou seleciona um dos itens do CollectioNView
+    override var isHighlighted: Bool {
+        didSet{
+            imageView.tintColor = self.isHighlighted ? UIColor.white : #colorLiteral(red: 0.3568627451, green: 0.05490196078, blue: 0.05098039216, alpha: 1)
+        }
+    }
+    
+    override var isSelected: Bool {
+        didSet{
+            imageView.tintColor = self.isSelected ? UIColor.white : #colorLiteral(red: 0.3568627451, green: 0.05490196078, blue: 0.05098039216, alpha: 1)
+        }
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder : coder)
+        setupView()
+    }
+    
+    private func setupView() {
+        self.addSubview(imageView)
+        setupLayout()
+    }
+    
+    private func setupLayout() {
+        // ImageView
+        imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
+        imageView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        imageView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+    }
+    
+    override class var requiresConstraintBasedLayout: Bool {
+        return true
     }
 }
