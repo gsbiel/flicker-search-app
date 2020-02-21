@@ -84,7 +84,6 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 extension ViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        print("Data Source: Fui chamado!")
         return 1
     }
     
@@ -97,6 +96,7 @@ extension ViewController: UICollectionViewDataSource {
         
         if let photoURL = self.photosURLArray?[indexPath.item] {
             cell.imageView.sd_setImage(with: URL(string: photoURL))
+            cell.backgroundColor = .red
         }else {
             cell.backgroundColor = .black
         }
