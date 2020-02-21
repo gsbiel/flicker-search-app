@@ -27,7 +27,7 @@ class FlickerCollectionView: UIView {
         let collectionVC = UICollectionView(frame: .zero, collectionViewLayout: self.collectionViewFlowLayout)
         collectionVC.translatesAutoresizingMaskIntoConstraints = false
         collectionVC.backgroundColor = .white
-        collectionVC.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "collectionViewCell")
+        collectionVC.register(FlickrCollectionViewCell.self, forCellWithReuseIdentifier: "collectionViewCell")
         collectionVC.scrollIndicatorInsets = UIEdgeInsets(top: 20, left: 0, bottom: 10, right: 0)
         return collectionVC
     }()
@@ -64,4 +64,44 @@ class FlickerCollectionView: UIView {
     override class var requiresConstraintBasedLayout: Bool {
         return true
     }
+}
+
+class FlickrCollectionViewCell: UICollectionViewCell {
+    
+    lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 30
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame:frame)
+        setupView()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupView()
+    }
+    
+    private func setupView() {
+        self.addSubview(imageView)
+        setupLayout()
+    }
+    
+    private func setupLayout() {
+        // imageView
+        imageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        imageView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        imageView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+    }
+    
+    override class var requiresConstraintBasedLayout: Bool {
+        return true
+    }
+    
 }

@@ -24,7 +24,7 @@ class FlickrAPI {
     
     static private let baseURL: String =  "https://www.flickr.com/services/rest"
     
-    static func getPhotoURL() {
+    static func getPhotoURL(completion: @escaping(([String : [String]]) -> ())){
         print("Requisitando dados das imagens...")
         Alamofire.request(self.baseURL, parameters: self.parameters).responseJSON { (response) in
             if response.result.isSuccess {
@@ -38,10 +38,11 @@ class FlickrAPI {
                     let size = "s"
                     photosURL.append("https://farm\(farm_id).staticflickr.com/\(server_id)/\(id)_\(secret)_\(size).jpg")
                 }
-                print(photosURL)
+                completion(["success" : photosURL])
             }
             else{
-                print("Aconteceu um erro na requisicao feita em getPhotoData")
+                print("")
+                completion(["error" : ["Aconteceu um erro na requisicao feita em getPhotoData"]])
             }
         }
     }

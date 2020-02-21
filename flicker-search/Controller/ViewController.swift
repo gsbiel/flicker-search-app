@@ -7,9 +7,18 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ViewController: UIViewController {
-
+    
+    private var flickerView: FlickerCollectionView? = nil
+    
+    private var photosURLArray: [String]? {
+        didSet{
+            flickerView!.collectionView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -22,17 +31,20 @@ class ViewController: UIViewController {
         navBar.barTintColor = .red
         navBar.titleTextAttributes = [.foregroundColor: UIColor.white]
     
-        let flickerView = FlickerCollectionView(frame: UIScreen.main.bounds)
+        flickerView = FlickerCollectionView(frame: UIScreen.main.bounds)
         
-        flickerView.collectionView.dataSource = self
-        flickerView.collectionView.delegate = self
+        flickerView!.collectionView.dataSource = self
+        flickerView!.collectionView.delegate = self
+        self.view.addSubview(flickerView!)
         
-        self.view.addSubview(flickerView)
-        
-        FlickrAPI.getPhotoURL()
-        
+        FlickrAPI.getPhotoURL { (URLArray) in
+            if let URLs = URLArray["success"] {
+                self.photosURLArray = URLs
+            }else{
+                print("Erro!\(URLArray["error"]?[0])")
+            }
+        }
     }
-
 }
 
 
@@ -73,17 +85,22 @@ extension ViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         print("Data Source: Fui chamado!")
-        return 2
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 50
+        return self.photosURLArray?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath)
-        cell.backgroundColor = .red
-        cell.layer.cornerRadius = 30
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as! FlickrCollectionViewCell
+        
+        if let photoURL = self.photosURLArray?[indexPath.item] {
+            cell.imageView.sd_setImage(with: URL(string: photoURL))
+        }else {
+            cell.backgroundColor = .black
+        }
+        
         return cell
     }
 }
