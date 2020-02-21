@@ -24,10 +24,25 @@ class FlickrAPI {
     
     static private let baseURL: String =  "https://www.flickr.com/services/rest"
     
-    static func getPhotoData() {
-        print("Requisitando dados...")
-        AF.request(self.baseURL, parameters: self.parameters).validate().responseJSON { (response) in
-            print(response.result)
+    static func getPhotoURL() {
+        print("Requisitando dados das imagens...")
+        Alamofire.request(self.baseURL, parameters: self.parameters).responseJSON { (response) in
+            if response.result.isSuccess {
+                let photoDataJSON: JSON = JSON(response.result.value!)
+                var photosURL: [String] = [String]()
+                for photo in photoDataJSON["photos"]["photo"] {
+                    let farm_id = photo.1["farm"]
+                    let server_id = photo.1["server"]
+                    let id = photo.1["id"]
+                    let secret = photo.1["secret"]
+                    let size = "s"
+                    photosURL.append("https://farm\(farm_id).staticflickr.com/\(server_id)/\(id)_\(secret)_\(size).jpg")
+                }
+                print(photosURL)
+            }
+            else{
+                print("Aconteceu um erro na requisicao feita em getPhotoData")
+            }
         }
     }
 }
