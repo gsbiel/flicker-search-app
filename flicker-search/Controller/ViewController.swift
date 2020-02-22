@@ -19,6 +19,16 @@ class ViewController: UIViewController {
         }
     }
     
+    private lazy var blackView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.alpha = 0
+        view.frame = UIScreen.main.bounds
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismissBlackView)))
+        self.view.addSubview(view)
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -49,6 +59,39 @@ class ViewController: UIViewController {
             }else{
                 print("Erro!\(URLArray["error"]?[0])")
             }
+        }
+        
+        setNavBarButtons()
+        
+    }
+    
+    private func setNavBarButtons() {
+        let searchButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(handleSearchButton))
+        searchButtonItem.tintColor = .white
+        
+        //        let dotMenuImage = UIImage(named: "more")?.withRenderingMode(.alwaysTemplate)
+        //        let dotMenuButtonItem = UIBarButtonItem(image: dotMenuImage, style: .plain, target: self, action: #selector(handleDotMenuButton))
+        let dotMenuButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(handleDotMenuButton))
+        dotMenuButtonItem.tintColor = .white
+        
+        navigationItem.rightBarButtonItems = [dotMenuButtonItem, searchButtonItem]
+    }
+    
+    @objc private func handleSearchButton() {
+        print("Search Pressed!")
+    }
+    
+    @objc private func handleDotMenuButton() {
+        print("Open Menu!")
+        UIView.animate(withDuration: 0.5) {
+            self.blackView.alpha = 0.5
+        }
+    }
+    
+    @objc private func handleDismissBlackView(_ view: UIView) {
+       print("Dismiss Backdrop")
+        UIView.animate(withDuration: 0.5) {
+            self.blackView.alpha = 0
         }
     }
 }
