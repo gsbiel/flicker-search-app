@@ -27,9 +27,15 @@ class ViewController: UIViewController {
             fatalError("Navigation controller does not exist.")
         }
         
-        navBar.topItem?.title = "Flicker Search"
+        let navBarTitleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.width - 32, height: self.view.frame.height))
+        navBarTitleLabel.text = "Flicker Search"
+        navBarTitleLabel.textColor = .white
+        navBarTitleLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        
+        navBar.topItem?.titleView = navBarTitleLabel
+        //navBar.topItem?.title = "Flicker Search"
         navBar.barTintColor = .red
-        navBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        //navBar.titleTextAttributes = [.foregroundColor: UIColor.white]
     
         flickerView = FlickerCollectionView(frame: UIScreen.main.bounds)
         
