@@ -20,7 +20,7 @@ class SettingsViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.lightGray
         navigationController?.navigationItem.title = "Settings"
-        
+//        navigationController?.navigationItem.titleView?.tintColor = UIColor.white
         navBar.tintColor = .white
         
         let attributes: [NSAttributedString.Key : Any] = [
