@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol SettingsLauncherProtocol {
+    func didSelectSettingItem(item: String)
+}
+
 class SettingsLauncher: NSObject {
     
     private let cvHeight: CGFloat = CGFloat(400)
@@ -91,6 +95,11 @@ extension SettingsLauncher: UICollectionViewDataSource, UICollectionViewDelegate
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cvSettingsCell", for: indexPath) as! SettingsCell
         cell.label.text = self.cvItemsArray[indexPath.item]
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        handleDismissBlackView()
+        self.delegate?.didSelectSettingItem(item: cvItemsArray[indexPath.item])
     }
 }
 
