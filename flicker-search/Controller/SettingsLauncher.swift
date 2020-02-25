@@ -96,11 +96,19 @@ extension SettingsLauncher: UICollectionViewDataSource, UICollectionViewDelegate
 
 class SettingsCell: UICollectionViewCell {
     
+    override var isHighlighted: Bool {
+        didSet {
+            self.backgroundColor = self.isHighlighted ? .darkGray : .white
+            self.label.textColor = self.isHighlighted ? .white : .black
+            self.icon.backgroundColor = self.isHighlighted ? .white : .darkGray
+        }
+    }
+    
     private lazy var icon: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 10
-        view.backgroundColor = .green
+        view.backgroundColor = .darkGray
         return view
     }()
     
