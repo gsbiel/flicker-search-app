@@ -9,21 +9,14 @@
 import UIKit
 
 protocol SettingsLauncherProtocol {
-    func didSelectSettingItem(item: String)
+    func didSelectSettingItem(item: K.SettingItems)
 }
 
 class SettingsLauncher: NSObject {
     
     private let cvHeight: CGFloat = CGFloat(400)
     
-    private let cvItemsArray: [String] = [
-        "Settings",
-        "Terms and privacy policy",
-        "Send feedback",
-        "Help",
-        "Switch account",
-        "Cancel"
-    ]
+    private let cvItemsArray: [K.SettingItems] = K.SettingItems.allCases
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -93,7 +86,7 @@ extension SettingsLauncher: UICollectionViewDataSource, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cvSettingsCell", for: indexPath) as! SettingsCell
-        cell.label.text = self.cvItemsArray[indexPath.item]
+        cell.label.text = K.getValue(enumItem: self.cvItemsArray[indexPath.item])
         return cell
     }
     

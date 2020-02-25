@@ -139,8 +139,8 @@ extension ViewController: UICollectionViewDataSource {
 }
 
 extension ViewController: SettingsLauncherProtocol {
-    func didSelectSettingItem(item: String) {
-        if item == "Settings" {
+    func didSelectSettingItem(item: K.SettingItems) {
+        if item == K.SettingItems.Settings {
             let settingsVC = SettingsViewController()
             navigationController?.pushViewController(settingsVC, animated: true)
         }
