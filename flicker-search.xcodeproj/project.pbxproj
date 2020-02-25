@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,7 @@
 		89796F8623FDC94300DE6872 /* FlickrAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89796F8523FDC94300DE6872 /* FlickrAPI.swift */; };
 		89796F8823FDC97400DE6872 /* APIData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89796F8723FDC97400DE6872 /* APIData.swift */; };
 		89796F8A23FDD9AC00DE6872 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89796F8923FDD9AC00DE6872 /* MenuBar.swift */; };
+		8998146F2404706D000984DC /* SettingsLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8998146E2404706D000984DC /* SettingsLauncher.swift */; };
 		89F4C0A423FBFAAA00CB43AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F4C0A323FBFAAA00CB43AD /* AppDelegate.swift */; };
 		89F4C0A623FBFAAA00CB43AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F4C0A523FBFAAA00CB43AD /* SceneDelegate.swift */; };
 		89F4C0A823FBFAAA00CB43AD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F4C0A723FBFAAA00CB43AD /* ViewController.swift */; };
@@ -24,6 +25,7 @@
 		89796F8523FDC94300DE6872 /* FlickrAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrAPI.swift; sourceTree = "<group>"; };
 		89796F8723FDC97400DE6872 /* APIData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIData.swift; sourceTree = "<group>"; };
 		89796F8923FDD9AC00DE6872 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
+		8998146E2404706D000984DC /* SettingsLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLauncher.swift; sourceTree = "<group>"; };
 		89F4C0A023FBFAAA00CB43AD /* flicker-search.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "flicker-search.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89F4C0A323FBFAAA00CB43AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89F4C0A523FBFAAA00CB43AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				89F4C0A723FBFAAA00CB43AD /* ViewController.swift */,
+				8998146E2404706D000984DC /* SettingsLauncher.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -129,7 +132,6 @@
 				F985FF5C99C7EBFAA4EA980A /* Pods-flicker-search.debug.xcconfig */,
 				94A1B2B6F42C32B716093E4F /* Pods-flicker-search.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -251,6 +253,7 @@
 				89F4C0A823FBFAAA00CB43AD /* ViewController.swift in Sources */,
 				89F4C0BB23FBFEBC00CB43AD /* FlickerCollectionView.swift in Sources */,
 				89F4C0A423FBFAAA00CB43AD /* AppDelegate.swift in Sources */,
+				8998146F2404706D000984DC /* SettingsLauncher.swift in Sources */,
 				89F4C0A623FBFAAA00CB43AD /* SceneDelegate.swift in Sources */,
 				89796F8A23FDD9AC00DE6872 /* MenuBar.swift in Sources */,
 				89796F8623FDC94300DE6872 /* FlickrAPI.swift in Sources */,

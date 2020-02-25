@@ -19,15 +19,7 @@ class ViewController: UIViewController {
         }
     }
     
-    private lazy var blackView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .black
-        view.alpha = 0
-        view.frame = UIScreen.main.bounds
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismissBlackView)))
-        self.view.addSubview(view)
-        return view
-    }()
+    private let settingsLauncher = SettingsLauncher()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +55,7 @@ class ViewController: UIViewController {
         
         setNavBarButtons()
         
+        settingsLauncher.delegate = self
     }
     
     private func setNavBarButtons() {
@@ -83,16 +76,7 @@ class ViewController: UIViewController {
     
     @objc private func handleDotMenuButton() {
         print("Open Menu!")
-        UIView.animate(withDuration: 0.5) {
-            self.blackView.alpha = 0.5
-        }
-    }
-    
-    @objc private func handleDismissBlackView(_ view: UIView) {
-       print("Dismiss Backdrop")
-        UIView.animate(withDuration: 0.5) {
-            self.blackView.alpha = 0
-        }
+        settingsLauncher.showBlackView()
     }
 }
 
