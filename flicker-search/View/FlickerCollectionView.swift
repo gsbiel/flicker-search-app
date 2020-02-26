@@ -53,7 +53,7 @@ class FlickerCollectionView: UIView {
         menuBar.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
         menuBar.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         menuBar.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        menuBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        menuBar.heightAnchor.constraint(equalToConstant: 55).isActive = true
         
         collectionView.topAnchor.constraint(equalTo: menuBar.bottomAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor).isActive = true

@@ -14,6 +14,8 @@ class MenuBar: UIView {
     
     private let menuImagesName: [String] = ["home","popular","feed","user"]
     
+    private var horizontalBarLeftLayoutConstraint: NSLayoutConstraint?
+    
     private lazy var viewContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -33,6 +35,20 @@ class MenuBar: UIView {
         return collection
     }()
     
+    private lazy var segmentBar: UIView = {
+        let segment = UIView()
+        segment.translatesAutoresizingMaskIntoConstraints = false
+        segment.backgroundColor = UIColor.red
+        return segment
+    }()
+    
+    private lazy var currentItemBar: UIView = {
+        let bar = UIView()
+        bar.translatesAutoresizingMaskIntoConstraints = false
+        bar.backgroundColor = UIColor.white
+        return bar
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -45,6 +61,8 @@ class MenuBar: UIView {
     
     private func setupView() {
         viewContainer.addSubview(collectionView)
+        segmentBar.addSubview(currentItemBar)
+        viewContainer.addSubview(segmentBar)
         self.addSubview(viewContainer)
         setupLayout()
     }
@@ -58,9 +76,23 @@ class MenuBar: UIView {
         
         // collectionView
         collectionView.topAnchor.constraint(equalTo: viewContainer.topAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: viewContainer.bottomAnchor).isActive = true
+        //collectionView.bottomAnchor.constraint(equalTo: viewContainer.bottomAnchor).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         collectionView.leftAnchor.constraint(equalTo: viewContainer.leftAnchor).isActive = true
         collectionView.rightAnchor.constraint(equalTo: viewContainer.rightAnchor).isActive = true
+        
+        // segmentBar
+        segmentBar.topAnchor.constraint(equalTo: collectionView.bottomAnchor).isActive = true
+        segmentBar.leftAnchor.constraint(equalTo: viewContainer.leftAnchor).isActive = true
+        segmentBar.rightAnchor.constraint(equalTo: viewContainer.rightAnchor).isActive = true
+        segmentBar.heightAnchor.constraint(equalToConstant: 5).isActive = true
+        
+        // currentItemBar
+        currentItemBar.topAnchor.constraint(equalTo: segmentBar.topAnchor).isActive = true
+        currentItemBar.bottomAnchor.constraint(equalTo: segmentBar.bottomAnchor).isActive = true
+        currentItemBar.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width/4).isActive = true
+        horizontalBarLeftLayoutConstraint = currentItemBar.leftAnchor.constraint(equalTo: segmentBar.leftAnchor)
+        horizontalBarLeftLayoutConstraint?.isActive = true
     }
     
     override class var requiresConstraintBasedLayout: Bool {
@@ -86,6 +118,14 @@ extension MenuBar: UICollectionViewDataSource, UICollectionViewDelegate, UIColle
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let x = UIScreen.main.bounds.width/4 * CGFloat(indexPath.item)
+        self.horizontalBarLeftLayoutConstraint?.constant = x
+        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.layoutIfNeeded()
+        }, completion: nil)
     }
 }
 
