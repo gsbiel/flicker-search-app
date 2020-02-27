@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol MenuBarDelegate {
+    func didSelectMenuBarItem(atIndexPath indexPath: IndexPath)
+}
+
 class MenuBar: UIView {
     
     private let collectionViewCellId: String =  "collectionViewCell"
@@ -15,6 +19,8 @@ class MenuBar: UIView {
     private let menuImagesName: [String] = ["home","popular","feed","user"]
     
     private var horizontalBarLeftLayoutConstraint: NSLayoutConstraint?
+    
+    var delegate: MenuBarDelegate?
     
     private lazy var viewContainer: UIView = {
         let view = UIView()
@@ -142,7 +148,9 @@ extension MenuBar: UICollectionViewDataSource, UICollectionViewDelegate, UIColle
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         moveHorizontalBar(toIndexPath: indexPath.item)
+        delegate?.didSelectMenuBarItem(atIndexPath: indexPath)
     }
+    
 }
 
 class MenuCell: UICollectionViewCell {

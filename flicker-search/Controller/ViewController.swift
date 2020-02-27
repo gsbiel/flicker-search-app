@@ -65,6 +65,7 @@ class ViewController: UIViewController {
         setNavBarButtons()
         
         settingsLauncher.delegate = self
+        menuBar?.delegate = self
     }
     
     private func setNavBarButtons() {
@@ -177,6 +178,12 @@ extension ViewController: SettingsLauncherProtocol {
             let settingsVC = SettingsViewController()
             navigationController?.pushViewController(settingsVC, animated: true)
         }
+    }
+}
+
+extension ViewController: MenuBarDelegate {
+    func didSelectMenuBarItem(atIndexPath indexPath: IndexPath) {
+        flickerView?.collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
     }
 }
 
