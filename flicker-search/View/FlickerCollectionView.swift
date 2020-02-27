@@ -10,7 +10,7 @@ import UIKit
 
 class FlickerCollectionView: UIView {
     
-    private lazy var menuBar: MenuBar = {
+    lazy var menuBar: MenuBar = {
         let menu = MenuBar()
         menu.translatesAutoresizingMaskIntoConstraints = false
         return menu
@@ -18,14 +18,17 @@ class FlickerCollectionView: UIView {
     
     lazy var collectionViewFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width*0.45, height: UIScreen.main.bounds.width*0.45)
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        //layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+        //layout.itemSize = CGSize(width: UIScreen.main.bounds.width*0.45, height: UIScreen.main.bounds.width*0.45)
         return layout
     }()
     
     lazy var collectionView: UICollectionView = {
         let collectionVC = UICollectionView(frame: .zero, collectionViewLayout: self.collectionViewFlowLayout)
         collectionVC.translatesAutoresizingMaskIntoConstraints = false
+        collectionVC.isPagingEnabled = true
         collectionVC.backgroundColor = .white
         collectionVC.register(FlickrCollectionViewCell.self, forCellWithReuseIdentifier: "collectionViewCell")
         collectionVC.scrollIndicatorInsets = UIEdgeInsets(top: 20, left: 0, bottom: 10, right: 0)

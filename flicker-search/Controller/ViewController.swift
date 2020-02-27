@@ -21,6 +21,8 @@ class ViewController: UIViewController {
     
     private let settingsLauncher = SettingsLauncher()
     
+    private var menuBar: MenuBar?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -45,6 +47,9 @@ class ViewController: UIViewController {
         
         flickerView!.collectionView.dataSource = self
         flickerView!.collectionView.delegate = self
+    
+        menuBar = flickerView?.menuBar
+        
         self.view.addSubview(flickerView!)
         
         FlickrAPI.getPhotoURL { (URLArray) in
@@ -114,6 +119,12 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 //        <#code#>
 //    }
 
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        //print(scrollView.contentOffset.x)
+        let offset = scrollView.contentOffset.x / CGFloat(4.0)
+        menuBar?.moveHorizontalBar(toOffset: offset)
+    }
+
 }
 
 extension ViewController: UICollectionViewDataSource {
@@ -123,18 +134,27 @@ extension ViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.photosURLArray?.count ?? 0
+        //return self.photosURLArray?.count ?? 0
+        return 4
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let colors = [UIColor.blue, UIColor.gray, UIColor.yellow, UIColor.orange]
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as! FlickrCollectionViewCell
         
-        if let photoURL = self.photosURLArray?[indexPath.item] {
-            cell.imageView.sd_setImage(with: URL(string: photoURL))
-            cell.backgroundColor = .red
-        }else {
-            cell.backgroundColor = .black
-        }
+        cell.backgroundColor = colors[indexPath.item]
+//
+//        if let photoURL = self.photosURLArray?[indexPath.item] {
+//            cell.imageView.sd_setImage(with: URL(string: photoURL))
+//            cell.backgroundColor = .red
+//        }else {
+//            cell.backgroundColor = .black
+//        }
         
         return cell
     }

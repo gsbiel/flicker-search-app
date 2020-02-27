@@ -95,6 +95,18 @@ class MenuBar: UIView {
         horizontalBarLeftLayoutConstraint?.isActive = true
     }
     
+    func moveHorizontalBar(toIndexPath: Int) {
+      let x = UIScreen.main.bounds.width/4 * CGFloat(toIndexPath)
+        self.horizontalBarLeftLayoutConstraint?.constant = x
+        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
+    func moveHorizontalBar(toOffset: CGFloat) {
+        self.horizontalBarLeftLayoutConstraint?.constant = toOffset
+    }
+    
     override class var requiresConstraintBasedLayout: Bool {
         return true
     }
@@ -121,11 +133,7 @@ extension MenuBar: UICollectionViewDataSource, UICollectionViewDelegate, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let x = UIScreen.main.bounds.width/4 * CGFloat(indexPath.item)
-        self.horizontalBarLeftLayoutConstraint?.constant = x
-        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.layoutIfNeeded()
-        }, completion: nil)
+        moveHorizontalBar(toIndexPath: indexPath.item)
     }
 }
 
