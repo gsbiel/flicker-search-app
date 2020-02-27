@@ -47,8 +47,10 @@ class ViewController: UIViewController {
         
         flickerView!.collectionView.dataSource = self
         flickerView!.collectionView.delegate = self
-    
+        let initialIndexPath = IndexPath(item: 0, section: 0)
+
         menuBar = flickerView?.menuBar
+        menuBar?.selectItem(atIndexPath: initialIndexPath)
         
         self.view.addSubview(flickerView!)
         
@@ -121,9 +123,18 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         //print(scrollView.contentOffset.x)
-        let offset = scrollView.contentOffset.x / CGFloat(4.0)
-        menuBar?.moveHorizontalBar(toOffset: offset)
+//        let offset = scrollView.contentOffset.x / CGFloat(4.0)
+//        menuBar?.moveHorizontalBar(toOffset: offset)
     }
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//        print("Will end dragging")
+//        print(targetContentOffset.pointee.x)
+//        print(self.view.bounds.width)
+        let index = Int(targetContentOffset.pointee.x/self.view.bounds.width)
+        let indexPath = IndexPath(item: index, section: 0)
+        menuBar?.selectItem(atIndexPath: indexPath)
+    }
+    
 
 }
 

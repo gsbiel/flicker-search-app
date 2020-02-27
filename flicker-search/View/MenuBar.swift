@@ -103,8 +103,16 @@ class MenuBar: UIView {
         }, completion: nil)
     }
     
-    func moveHorizontalBar(toOffset: CGFloat) {
-        self.horizontalBarLeftLayoutConstraint?.constant = toOffset
+    func moveHorizontalBar(toOffset offset : CGFloat) {
+        self.horizontalBarLeftLayoutConstraint?.constant = offset
+        let index = offset / CGFloat(4.0)
+        let cell = collectionView.cellForItem(at: IndexPath(item: Int(index), section: 0))
+        cell?.isHighlighted = true
+    }
+    
+    func selectItem(atIndexPath indexPath: IndexPath) {
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        moveHorizontalBar(toIndexPath: indexPath.item)
     }
     
     override class var requiresConstraintBasedLayout: Bool {
