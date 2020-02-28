@@ -9,18 +9,24 @@
 import UIKit
 
 protocol MenuBarDelegate {
-    func didSelectMenuBarItem(atIndexPath indexPath: IndexPath)
+    func didSelectMenuBarItem(menuBar: MenuBar, atIndexPath indexPath: IndexPath)
+}
+
+protocol MenuBarDataSource {
+    func MenuBarCollectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    func MenuBarCollectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    func MenuBarCollectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
+    func MenuBarcollectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
 }
 
 class MenuBar: UIView {
     
-    private let collectionViewCellId: String =  "collectionViewCell"
-    
-    private let menuImagesName: [String] = ["home","popular","feed","user"]
-    
     private var horizontalBarLeftLayoutConstraint: NSLayoutConstraint?
     
+    private let collectionViewCellId: String =  "collectionViewCell"
+    
     var delegate: MenuBarDelegate?
+    var dataSource: MenuBarDataSource?
     
     private lazy var viewContainer: UIView = {
         let view = UIView()
@@ -128,29 +134,34 @@ class MenuBar: UIView {
 
 extension MenuBar: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        var numberOfItems: Int?
+        numberOfItems = dataSource?.MenuBarCollectionView(collectionView, numberOfItemsInSection: section)
+        return numberOfItems ?? 4
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.collectionViewCellId, for: indexPath) as! MenuCell
-        cell.imageView.image = UIImage(named: self.menuImagesName[indexPath.item])!.withRenderingMode(.alwaysTemplate)
-        cell.tintColor = #colorLiteral(red: 0.3568627451, green: 0.05490196078, blue: 0.05098039216, alpha: 1)
-        return cell
+        if let dequeueCell = dataSource?.MenuBarCollectionView(collectionView, cellForItemAt: indexPath) {
+           return dequeueCell
+        }else {
+            return UICollectionViewCell()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.bounds.width/4.0 , height: self.bounds.height)
+        var size: CGSize
+        size = dataSource?.MenuBarCollectionView(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? CGSize(width: 0, height: 0)
+        return size
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        var spacing: CGFloat
+        spacing = dataSource?.MenuBarcollectionView(collectionView, layout: collectionViewLayout, minimumInteritemSpacingForSectionAt: section) ?? CGFloat(0)
+        return spacing
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        moveHorizontalBar(toIndexPath: indexPath.item)
-        delegate?.didSelectMenuBarItem(atIndexPath: indexPath)
+        delegate?.didSelectMenuBarItem(menuBar: self, atIndexPath: indexPath)
     }
-    
 }
 
 class MenuCell: UICollectionViewCell {

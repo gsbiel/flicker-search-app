@@ -13,6 +13,10 @@ class ViewController: UIViewController {
     
     private var flickerView: FlickerCollectionView? = nil
     
+    private let menuImagesName: [String] = ["home","popular","feed","user"]
+    
+    private let collectionViewCellId: String =  "collectionViewCell"
+    
     private var photosURLArray: [String]? {
         didSet{
             flickerView!.collectionView.reloadData()
@@ -42,17 +46,22 @@ class ViewController: UIViewController {
         //navBar.topItem?.title = "Flicker Search"
         navBar.barTintColor = .red
         //navBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        
+        setNavBarButtons()
     
         flickerView = FlickerCollectionView(frame: UIScreen.main.bounds)
+        menuBar = flickerView!.menuBar
         
         flickerView!.collectionView.dataSource = self
         flickerView!.collectionView.delegate = self
-        let initialIndexPath = IndexPath(item: 0, section: 0)
-
-        menuBar = flickerView?.menuBar
-        menuBar?.selectItem(atIndexPath: initialIndexPath)
+        menuBar?.delegate = self
+        menuBar?.dataSource = self
+        settingsLauncher.delegate = self
         
         self.view.addSubview(flickerView!)
+        
+        let initialIndexPath = IndexPath(item: 0, section: 0)
+        menuBar?.selectItem(atIndexPath: initialIndexPath)
         
         FlickrAPI.getPhotoURL { (URLArray) in
             if let URLs = URLArray["success"] {
@@ -62,10 +71,7 @@ class ViewController: UIViewController {
             }
         }
         
-        setNavBarButtons()
         
-        settingsLauncher.delegate = self
-        menuBar?.delegate = self
     }
     
     private func setNavBarButtons() {
@@ -148,10 +154,34 @@ extension ViewController: SettingsLauncherProtocol {
     }
 }
 
-// MARK: - MenuBarDelegate Protocol
+// MARK: - MenuBar Delegate and DataSource Protocols
+
 extension ViewController: MenuBarDelegate {
-    func didSelectMenuBarItem(atIndexPath indexPath: IndexPath) {
+    func didSelectMenuBarItem(menuBar: MenuBar, atIndexPath indexPath: IndexPath) {
         flickerView?.collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+        menuBar.moveHorizontalBar(toIndexPath: indexPath.item)
+    }
+}
+
+extension ViewController: MenuBarDataSource {
+    
+    func MenuBarCollectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return menuImagesName.count
+    }
+
+    func MenuBarCollectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.collectionViewCellId, for: indexPath) as! MenuCell
+        cell.imageView.image = UIImage(named: self.menuImagesName[indexPath.item])!.withRenderingMode(.alwaysTemplate)
+        cell.tintColor = #colorLiteral(red: 0.3568627451, green: 0.05490196078, blue: 0.05098039216, alpha: 1)
+        return cell
+    }
+    
+    func MenuBarCollectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.width/4.0 , height: collectionView.bounds.height)
+    }
+    
+    func MenuBarcollectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat(0)
     }
 }
 
